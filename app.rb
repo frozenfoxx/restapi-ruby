@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/json'
 require_relative './guestbook'
 
 class RestAPI < Sinatra::Base
@@ -6,7 +7,12 @@ class RestAPI < Sinatra::Base
     configure do
         set :bind, ENV["HOST"]
         set :port, ENV["PORT"]
+        set :threaded, true
+    end
+
+    def initialize
         @guestbook = Guestbook.new
+        super
     end
 
     # Default route
@@ -16,46 +22,46 @@ class RestAPI < Sinatra::Base
     
     get '/signatures' do
         begin
-            @guestbook.signatures
+            json(@guestbook.signatures)
         rescue RuntimeError
             status 500
-            body 'Issue retrieving the signatures'
+            json('Issue retrieving the signatures')
         end
     end
 
     post '/signatures/:id' do
         begin
-            @guestbook.add(params[:id])
-        rescue
+            json(@guestbook.add(params[:id]))
+        rescue RuntimeError
             status 409
-            body 'Signature already exists'
+            json('Signature already exists')
         end
     end
 
     get '/signatures/:id' do
         begin
-            @guestbook.signatures[params[:id]]
-        rescue
+            json(@guestbook.signatures[params[:id]])
+        rescue RuntimeError
             status 404
-            body 'Unable to locate signature'
+            json('Unable to locate signature')
         end
     end
 
     put '/signatures/:id' do
         begin
-            @guestbook.update(params[:id])
-        rescue
+            json(@guestbook.update(params[:id]))
+        rescue RuntimeError
             status 401
-            body 'Unable to update signature'
+            json('Unable to update signature')
         end
     end
 
     delete '/signatures/:id' do
         begin
-            @guestbook.delete(params[:id])
-        rescue
+            json(@guestbook.delete(params[:id]))
+        rescue RuntimeError
             status 401
-            body 'Unable to delete signature'
+            json('Unable to delete signature')
         end
     end
 

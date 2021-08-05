@@ -1,7 +1,9 @@
 require 'date'
 
 # Handle all guestbook operations
-class Guestbook:
+class Guestbook
+    attr_reader :signatures
+
     def initialize()
         @signatures = {}
     end
@@ -25,7 +27,7 @@ class Guestbook:
             raise RuntimeError "#{name_to_delete} is not in the book"
         end
         
-        return "Successfully removed #{name_to_delete} at #{@signatures[name_to_delete]}"
+        return "Successfully removed #{name_to_delete}"
     end
 
     # Update when a guest signed the book
@@ -34,10 +36,9 @@ class Guestbook:
             @signatures[name_to_update] = Time.now
         else
             raise RuntimeError "#{name_to_update} is not in the book"
+        end
 
         return "Successfully updated #{name_to_update} at #{@signatures[name_to_update]}"
 
     end
-
-    attr_reader :signatures
 end
