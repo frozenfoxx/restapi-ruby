@@ -13,7 +13,7 @@ class Guestbook
         unless @signatures.key?(name_to_add)
             @signatures.store(name_to_add, Time.now)
         else
-            raise RuntimeError "#{name_to_add} already signed on #{@signatures[name_to_add]}"
+            raise RuntimeError.new "#{name_to_add} already signed on #{@signatures[name_to_add]}"
         end
 
         return "Successfully added #{name_to_add} at #{@signatures[name_to_add]}"
@@ -24,7 +24,7 @@ class Guestbook
         if @signatures.key?(name_to_delete)
             @signatures.delete(name_to_delete)
         else
-            raise RuntimeError "#{name_to_delete} is not in the book"
+            raise RuntimeError.new "#{name_to_delete} is not in the book"
         end
         
         return "Successfully removed #{name_to_delete}"
@@ -35,7 +35,7 @@ class Guestbook
         if @signatures.key?(name_to_update)
             @signatures[name_to_update] = Time.now
         else
-            raise RuntimeError "#{name_to_update} is not in the book"
+            raise RuntimeError.new "#{name_to_update} is not in the book"
         end
 
         return "Successfully updated #{name_to_update} at #{@signatures[name_to_update]}"
