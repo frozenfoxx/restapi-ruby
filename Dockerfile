@@ -17,17 +17,20 @@ RUN apk -U --no-cache --virtual .build-deps \
   add ${BUILD_DEPENDENCIES}
 
 # Install gems
-COPY Gemfile* ${APP_HOME}/
-RUN chmod 777 /usr/local/bundle \
-  && bundle install
+RUN adduser -D rubyapp && \
+  chown -R rubyapp ${APP_HOME}
+USER rubyapp
+COPY . ${APP_HOME}/
+RUN bundle install
 
 # Cleanup build dependencies
+USER root
 RUN apk del .build-deps
-
-# Add source
-COPY . /app
 
 # Expose port
 EXPOSE ${PORT}
+
+# Change user
+USER rubyapp
 
 ENTRYPOINT [ "./entrypoint.sh" ]
