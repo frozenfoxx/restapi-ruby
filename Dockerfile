@@ -18,7 +18,7 @@ RUN apk -U --no-cache --virtual .build-deps \
 
 # Install gems
 COPY Gemfile* ${APP_HOME}/
-RUN bundle install
+RUN bundle install --system
 
 # Cleanup build dependencies
 RUN apk del .build-deps
