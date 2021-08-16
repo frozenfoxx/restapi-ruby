@@ -1,5 +1,5 @@
 # Base image
-FROM ruby:alpine
+FROM ruby:3-alpine3.13
 
 # Information
 LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
