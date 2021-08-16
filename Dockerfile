@@ -18,7 +18,7 @@ RUN bundle config --global frozen 1
 RUN apk -U --no-cache --virtual .build-deps \
   add ${BUILD_DEPENDENCIES}
 
-# Install gems
+# Install
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
