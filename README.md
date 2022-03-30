@@ -1,6 +1,6 @@
 # restapi-ruby
 
-[![Build Status](https://cloud.drone.io/api/badges/frozenfoxx/restapi-ruby/status.svg?ref=refs/heads/main)](https://cloud.drone.io/frozenfoxx/restapi-ruby)
+[![Actions Status](https://github.com/frozenfoxx/restapi-ruby/workflows/build/badge.svg)](https://github.com/frozenfoxx/restapi-ruby/actions)
 
 Example REST API in Ruby.
 
